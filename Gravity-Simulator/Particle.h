@@ -28,6 +28,13 @@ public:
 
     }
 
+
+    void setPosition(sf::Vector2f pos)
+    {
+        this->pos = pos;
+
+    }
+
     void render(sf::RenderWindow& win)
     {
         particleCircle.setPosition(pos);
