@@ -9,12 +9,14 @@ class Particle
     sf::Vector2f pos;
     sf::Vector2f velocity;
     sf::CircleShape particleCircle;
+    sf::Color color;
 
 public:
 
 
-    Particle(float pos_x, float pos_y, float velocity_x, float velocity_y)
+    Particle(float pos_x, float pos_y, float velocity_x, float velocity_y, sf::Color color)
     {
+        this->color = color;
 
         pos.x = pos_x;
         pos.y = pos_y;
@@ -23,11 +25,15 @@ public:
         velocity.y = velocity_y;
 
         particleCircle.setPosition(pos);
-        particleCircle.setFillColor(sf::Color::White);
+        particleCircle.setFillColor(color);
         particleCircle.setRadius(4);
 
     }
 
+    void setColor(sf::Color color) {
+        this->color = color;
+        particleCircle.setFillColor(color);
+    }
 
     void setPosition(sf::Vector2f pos)
     {

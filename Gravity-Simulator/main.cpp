@@ -13,14 +13,13 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1400, 768), "Gravity simulation " + VERSION);
     window.setFramerateLimit(FPS_LIMIT);
     
-    GravitySource source(680, 334, 5000);
-    Particle mainParticle(400, 500, 400, 0);
-    Particle mouseParticle(- 10, - 10, 0, 0);
+    GravitySource mainSource(680, 334, 5000);
+    Particle mainParticle(400, 500, 400, 0, sf::Color::Red);
+    Particle mouseParticle(- 10, - 10, 0, 0, sf::Color::Blue);
 
     std::vector<Particle> particles;
     text_info infoText;
     infoText.initText("D:\\fonts\\OpenSans\\OpenSans-Light.ttf");
-
 
     sf::Clock clock;
     sf::Clock deltaClock;
@@ -50,19 +49,19 @@ int main()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
-            particles.push_back(Particle(localMousePosition.x,localMousePosition.y,400,0));
+            particles.push_back(Particle(localMousePosition.x,localMousePosition.y,400,0,sf::Color::White));
         }
 
         //Rendering
         window.clear();
         for (int i = 0; i < particles.size(); i++)
         {
-            particles[i].updatePhysics(source, deltaTime);
+            particles[i].updatePhysics(mainSource, deltaTime);
             particles[i].render(window);
         }
-        mainParticle.updatePhysics(source, deltaTime);
-        source.render(window);
-        infoText.render(window, mainParticle, fps, deltaTime, mainParticle.getVelocity(), mainParticle.getPosition());
+        mainParticle.updatePhysics(mainSource, deltaTime);
+        mainSource.render(window);
+        infoText.render(window, mainParticle, mainSource, fps, deltaTime, particles.size()+1, mainParticle.getVelocity(), mainParticle.getPosition());
         mainParticle.render(window);
         mouseParticle.render(window);
         window.display();

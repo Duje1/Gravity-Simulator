@@ -18,7 +18,7 @@ public:
 
         gravitySourceCircle.setPosition(pos);
         gravitySourceCircle.setFillColor(sf::Color::White);
-        gravitySourceCircle.setRadius(4);
+        gravitySourceCircle.setRadius(8);
 
     }
 
