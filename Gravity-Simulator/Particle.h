@@ -9,12 +9,14 @@ class Particle
     sf::Vector2f pos;
     sf::Vector2f velocity;
     sf::CircleShape particleCircle;
+    sf::Color color;
 
 public:
 
 
-    Particle(float pos_x, float pos_y, float velocity_x, float velocity_y)
+    Particle(float pos_x, float pos_y, float velocity_x, float velocity_y, sf::Color color)
     {
+        this->color = color;
 
         pos.x = pos_x;
         pos.y = pos_y;
@@ -23,8 +25,19 @@ public:
         velocity.y = velocity_y;
 
         particleCircle.setPosition(pos);
-        particleCircle.setFillColor(sf::Color::White);
+        particleCircle.setFillColor(color);
         particleCircle.setRadius(4);
+
+    }
+
+    void setColor(sf::Color color) {
+        this->color = color;
+        particleCircle.setFillColor(color);
+    }
+
+    void setPosition(sf::Vector2f pos)
+    {
+        this->pos = pos;
 
     }
 
@@ -34,7 +47,7 @@ public:
         win.draw(particleCircle);
     }
 
-    void updatePhysics(GravitySource& s)
+    void updatePhysics(GravitySource& s, float deltaTime)
     {
         float distanceX = s.getPosition().x - pos.x;
         float distanceY = s.getPosition().y - pos.y;
@@ -48,14 +61,15 @@ public:
 
         float inverseSquareDropoff = inverseDistance * inverseDistance;
 
-        float accelerationX = normalizedX * s.getStrength() * inverseSquareDropoff;
-        float accelerationY = normalizedY * s.getStrength() * inverseSquareDropoff;
+        float accelerationX = normalizedX * s.getStrength() * inverseSquareDropoff ;
+        float accelerationY = normalizedY * s.getStrength() * inverseSquareDropoff ;
 
-        velocity.x += accelerationX;
-        velocity.y += accelerationY;
+        
+        velocity.x += accelerationX * deltaTime;
+        velocity.y += accelerationY * deltaTime;
 
-        pos.x += velocity.x;
-        pos.y += velocity.y;
+        pos.x += velocity.x * deltaTime;
+        pos.y += velocity.y * deltaTime;
 
     }
 
