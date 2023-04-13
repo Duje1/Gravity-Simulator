@@ -16,6 +16,7 @@ class text_info
     sf::Text fpsText;
     sf::Text velocityText;
     sf::Text positionText;
+    sf::Text deltaTimeText;
 public:
 
     void initFont(sf::Font& font, std::string address)
@@ -36,21 +37,28 @@ public:
         fpsText.setPosition(100, 100);
         fpsText.setFillColor(sf::Color::White);
 
+        deltaTimeText.setFont(font);
+        deltaTimeText.setCharacterSize(15);
+        deltaTimeText.setPosition(100, 115);
+        deltaTimeText.setFillColor(sf::Color::Green);
+
         velocityText.setCharacterSize(14);
         velocityText.setFont(font);
         velocityText.setFillColor(sf::Color::White);
-        velocityText.setPosition(100, 115);
+        velocityText.setPosition(100, 130);
 
         positionText.setCharacterSize(14);
         positionText.setFont(font);
         positionText.setFillColor(sf::Color::White);
-        positionText.setPosition(100, 130);
+        positionText.setPosition(100, 145);
     }
 
-    void render(sf::RenderWindow& win, Particle& particle, float fps, sf::Vector2f velocity, sf::Vector2f position)
+    void render(sf::RenderWindow& win, Particle& particle, float fps, float deltaTime, sf::Vector2f velocity, sf::Vector2f position)
     {
         fpsText.setString(tostring(fps) + " / 60");
         win.draw(fpsText);
+        deltaTimeText.setString("Delta Time: " + tostring( deltaTime) + " seconds");
+        win.draw(deltaTimeText);
         velocityText.setString("Velocity X : " + tostring(velocity.x) + " Velocity Y: " + tostring(velocity.y));
         win.draw(velocityText);
         positionText.setString("Positon X: " + tostring(position.x) + " Position Y: " + tostring(position.y));

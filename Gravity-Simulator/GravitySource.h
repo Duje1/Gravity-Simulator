@@ -34,6 +34,6 @@ public:
 
     float getStrength()
     {
-        return strength;
+        return strength * 10000;
     }
 };
