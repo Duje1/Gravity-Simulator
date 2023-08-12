@@ -35,15 +35,15 @@ int main()
             if (event.type == event.Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
         }
 
-        //Get the fps
+        // Get the fps
         float currentTime = clock.restart().asSeconds();
         float fps = 1.f / (currentTime);
         lastTime = currentTime;
 
-        //Get delta time
+        // Get delta time
         float deltaTime = deltaClock.restart().asSeconds();
 
-        // get the local mouse position (relative to a window)
+        // Get the local mouse position (relative to a window)
         localMousePosition = sf::Mouse::getPosition(window);
         mouseParticle.setPosition(sf::Vector2f(localMousePosition.x - 7, localMousePosition.y -10));
 
@@ -52,7 +52,7 @@ int main()
             particles.push_back(Particle(localMousePosition.x,localMousePosition.y,400,0,sf::Color::White));
         }
 
-        //Rendering
+        // Rendering
         window.clear();
         for (int i = 0; i < particles.size(); i++)
         {
